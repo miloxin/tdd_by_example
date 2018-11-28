@@ -39,10 +39,16 @@ describe('Money', () => {
     expect(Money.dollar(5).times(3).currency()).toEqual('USD')
   })
 
-  it('can add two quantities', () => {
+  it('can add two money', () => {
     const anyAmount = 5
     const otherAmount = 3
     expect(Money.euro(anyAmount).add(Money.euro(otherAmount))).toEqual(Money.euro(8))
+  })
+
+  it('can add two money from different currencies with a rate conversion > 1', () => {
+    const anyAmount = 5
+    const otherAmount = 3
+    expect(Money.euro(anyAmount).add(Money.dollar(otherAmount))).toEqual(Money.euro(7))
   })
 
   function moneyEquality (a, b) {

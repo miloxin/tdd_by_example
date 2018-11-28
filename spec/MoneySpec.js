@@ -39,6 +39,12 @@ describe('Money', () => {
     expect(Money.dollar(5).times(3).currency()).toEqual('USD')
   })
 
+  it('can add two quantities', () => {
+    const anyAmount = 5
+    const otherAmount = 3
+    expect(Money.euro(anyAmount).add(Money.euro(otherAmount))).toEqual(Money.euro(8))
+  })
+
   function moneyEquality (a, b) {
     if(a instanceof Money && b instanceof Money) {
       return a.isEqual(b)

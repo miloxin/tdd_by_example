@@ -45,10 +45,22 @@ describe('Money', () => {
     expect(Money.euro(anyAmount).add(Money.euro(otherAmount))).toEqual(Money.euro(8))
   })
 
-  it('can add two money from different currencies with a rate conversion > 1', () => {
+  it('can not add two money from different currencies', () => {
     const anyAmount = 5
     const otherAmount = 3
-    expect(Money.euro(anyAmount).add(Money.dollar(otherAmount))).toEqual(Money.euro(7))
+    expect( function () {Money.euro(anyAmount).add(Money.dollar(otherAmount))} ).toThrow(new Error('Las monedas son diferentes'))
+  })
+
+  it('can convert euros to dollars', () => {
+    const anyAmount = Money.euro(5)
+    const exchange_currency = 'USD'
+    expect(Bank.convert(anyAmount, exchange_currency)).toEqual(Money.dollar(10))
+  })
+
+  it('can convert dollars to euros', () => {
+    const anyAmount = Money.dollar(10)
+    const exchange_currency = 'EUR'
+    expect(Bank.convert(anyAmount, exchange_currency)).toEqual(Money.euro(5))
   })
 
   function moneyEquality (a, b) {

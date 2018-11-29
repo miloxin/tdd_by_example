@@ -25,7 +25,12 @@ class Money {
   }
 
   add (money) {
-    return new Money(this._amount + money._amount, this._currency)
+    if (this._currency == money._currency){
+      return new Money(this._amount + money._amount, this._currency)
+    } else {
+      throw new Error('Las monedas son diferentes')
+    }
+
   }
 
   _sameAmountAs(money) {
@@ -34,5 +39,13 @@ class Money {
 
   _sameCurrencyAs(money) {
     return this._currency === money._currency
+  }
+}
+
+class Bank {
+
+  static convert(money, exchange_currency){
+    let rate = 2;
+    return new Money(money._amount * rate, exchange_currency)
   }
 }

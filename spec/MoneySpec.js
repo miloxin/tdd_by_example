@@ -63,6 +63,24 @@ describe('Money', () => {
     expect(Bank.convert(anyAmount, exchange_currency)).toEqual(Money.euro(5))
   })
 
+  it('can return a rate given two currencies', () => {
+    const aCurrency = 'USD'
+    const exchange_currency = 'EUR'
+    expect(Bank.get_rate(aCurrency, exchange_currency)).toEqual(0.5)
+  })
+
+  it('can return a rate = 1 given two same currencies', () => {
+    const aCurrency = 'USD'
+    const exchange_currency = 'USD'
+    expect(Bank.get_rate(aCurrency, exchange_currency)).toEqual(1)
+  })
+
+  it('can add two money from different currencies using a exchange rate', () => {
+    const anyAmount = Money.dollar(5)
+    const otherAmount = Money.euro(3)
+    expect(Bank.add(anyAmount, otherAmount)).toEqual(Money.dollar(11))
+  })
+
   function moneyEquality (a, b) {
     if(a instanceof Money && b instanceof Money) {
       return a.isEqual(b)
